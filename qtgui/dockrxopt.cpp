@@ -50,6 +50,7 @@ DockRxOpt::DockRxOpt(qint64 filterOffsetRange, QWidget *parent) :
         ModulationStrings.append("CW-L");
         ModulationStrings.append("CW-U");
         ModulationStrings.append("WFM (stereo oirt)");
+        ModulationStrings.append("DSD");
     }
     ui->modeSelector->addItems(ModulationStrings);
 

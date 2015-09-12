@@ -123,7 +123,8 @@ SOURCES += \
     qtgui/qtcolorpicker.cpp \
     receivers/nbrx.cpp \
     receivers/receiver_base.cpp \
-    receivers/wfmrx.cpp
+    receivers/wfmrx.cpp \
+    dsp/shoutstreamer.cpp
 
 HEADERS += \
     applications/gqrx/gqrx.h \
@@ -177,7 +178,8 @@ HEADERS += \
     qtgui/qtcolorpicker.h \
     receivers/nbrx.h \
     receivers/receiver_base.h \
-    receivers/wfmrx.h
+    receivers/wfmrx.h \
+    dps/shoutstreamer.h
 
 FORMS += \
     applications/gqrx/mainwindow.ui \
@@ -225,7 +227,16 @@ PKGCONFIG += gnuradio-analog \
              gnuradio-digital \
              gnuradio-filter \
              gnuradio-fft \
-             gnuradio-osmosdr
+             gnuradio-osmosdr \
+             gnuradio-digital
+
+    LIBS += -lgr-dsd
+    LIBS += -losmocore
+    LIBS += -lshout
+    DEPENDPATH += $$PWD/../../c++/osmo-tetra/src
+    LIBS += -L$$PWD/../../c++/osmo-tetra/src -losmo-tetra-phy -L$$PWD/../../c++/osmo-tetra/src -losmo-tetra-mac
+    INCLUDEPATH += $$PWD/../../c++/osmo-tetra/src
+
 
 unix:!macx {
     LIBS += -lboost_system$$BOOST_SUFFIX -lboost_program_options$$BOOST_SUFFIX

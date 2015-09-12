@@ -1037,6 +1037,28 @@ void MainWindow::selectDemod(int index)
         }
         break;
 
+    case DockRxOpt::MODE_DSD:
+        rx->set_demod(receiver::RX_DEMOD_DSD);
+        ui->plotter->setDemodRanges(0, 6250, 100, 10000, false);
+        uiDockAudio->setFftRange(0,15000);
+        click_res = 100;
+        switch (filter_preset)
+        {
+        case 0: //wide
+            flo = -6250;
+            fhi = 6250;
+            break;
+        case 2: // narrow
+            flo = -6250;
+            fhi = 6250;
+            break;
+        default: // normal
+            flo = -6250;
+            fhi = 6250;
+            break;
+        }
+        break;
+
     default:
         qDebug() << "Unsupported mode selection: " << index;
         flo = -5000;

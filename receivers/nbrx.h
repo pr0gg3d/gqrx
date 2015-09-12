@@ -25,6 +25,7 @@
 
 #include <gnuradio/analog/simple_squelch_cc.h>
 #include <gnuradio/blocks/complex_to_real.h>
+#include <gnuradio/blocks/multiply_const_ff.h>
 #include "receivers/receiver_base.h"
 #include "dsp/rx_noise_blanker_cc.h"
 #include "dsp/rx_filter.h"
@@ -32,8 +33,10 @@
 #include "dsp/rx_agc_xx.h"
 #include "dsp/rx_demod_fm.h"
 #include "dsp/rx_demod_am.h"
+#include "dsp/shoutstreamer.h"
 //#include "dsp/resampler_ff.h"
 #include "dsp/resampler_xx.h"
+#include <dsd/dsd_block_ff.h>
 
 class nbrx;
 
@@ -56,7 +59,8 @@ public:
         NBRX_DEMOD_AM   = 1,  /*!< Amplitude modulation. */
         NBRX_DEMOD_FM   = 2,  /*!< Frequency modulation. */
         NBRX_DEMOD_SSB  = 3,  /*!< Single Side Band. */
-        NBRX_DEMOD_NUM  = 4   /*!< Included for convenience. */
+        NBRX_DEMOD_DSD  = 4,  /*!< Digital Speech. */
+        NBRX_DEMOD_NUM  = 5   /*!< Included for convenience. */
     };
 
 public:
@@ -121,6 +125,12 @@ private:
     rx_demod_fm_sptr          demod_fm;   /*!< FM demodulator. */
     rx_demod_am_sptr          demod_am;   /*!< AM demodulator. */
     resampler_ff_sptr         audio_rr;   /*!< Audio resampler. */
+
+    gr::analog::quadrature_demod_cf::sptr          demod_fm_dsd;   /*!< FM demodulator. */
+    dsd_block_ff_sptr         dsd;
+    resampler_ff_sptr         audio_rr_dsd;   /*!< Audio resampler. */
+    gr::blocks::multiply_const_ff::sptr gain_dsd;
+    shoutstreamer_sptr        shout_streamer;
 
 };
 

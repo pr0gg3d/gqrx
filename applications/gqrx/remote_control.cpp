@@ -363,6 +363,10 @@ int RemoteControl::modeStrToInt(const char *buffer)
     {
         mode_int = 10;
     }
+    else if (mode_str.compare("DSD", Qt::CaseInsensitive) == 0)
+    {
+        mode_int = 11;
+    }
 
     return mode_int;
 }
@@ -419,6 +423,10 @@ QString RemoteControl::intToModeStr(int mode)
 
     case 10:
         mode_str = "WFM_ST_OIRT";
+        break;
+
+    case 11:
+        mode_str = "DSD";
         break;
 
     default:
